@@ -6,7 +6,8 @@
   "author": "wlsdud2194 <wlsdud2194@naver.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/server.js"
+    "start": "node ./src/server.js",
+    "test": "exit"
   },
   "dependencies": {
     "cors": "^2.8.5",
