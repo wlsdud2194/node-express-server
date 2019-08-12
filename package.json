@@ -1,0 +1,16 @@
+{
+  "name": "node-express-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wlsdud2194/node-express-server.git",
+  "author": "wlsdud2194 <wlsdud2194@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0"
+  }
+}
