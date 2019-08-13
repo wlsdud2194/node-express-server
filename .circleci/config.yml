@@ -16,10 +16,12 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      - run: mkdir bucket
+      # - run: mkdir bucket
+
+      # - run: cp -r  ./bucket
 
       - aws-s3/sync:
-          from: bucket
+          from: ~/repo
           to: 's3://node-express-server/'
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
