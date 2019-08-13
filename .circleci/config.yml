@@ -17,9 +17,22 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      # - run: mkdir bucket
+      - run:
+          name: install dependencies
+          command: yarn install
 
-      # - run: cp -r  ./bucket
+      # run tests!
+      - run:
+          name: Test
+          command: yarn test
+      
+      - run: 
+          name: remove node_modules
+          command: rm -rf node_modules
+
+      - run:
+          name: zip project
+          command: zip node-express-server.zip ./*
 
       - aws-s3/sync:
           from: ~/repo
@@ -32,21 +45,9 @@ jobs:
       - aws-code-deploy/deploy-bundle:
           application-name: AMessenger-ci-codedeploy-service
           deployment-group: ci-cd-deploy-group
-          # service-role-arn: CodeDeployDefault.AllAtOnce
           bundle-bucket: node-express-server
-          bundle-key: deploy
-          # arguments: '--profile assume_role'
-
-      - run:
-          name: install dependencies
-          command: yarn install
-
-      # run tests!
-      - run:
-          name: Test
-          command: yarn test
-
-      # - run: rm -fs node_modules
+          bundle-key: node-express-server.zip
+          bundle-type: zip
 
       - save_cache:
           paths:
