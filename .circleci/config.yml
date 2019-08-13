@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
-  - aws-s3: circleci/aws-s3@1.0.10
-  - aws-code-deploy: circleci/aws-code-deploy@0.0.9
+  aws-s3: circleci/aws-s3@1.0.10
+  aws-code-deploy: circleci/aws-code-deploy@0.0.8
 jobs:
   build:
     docker:
