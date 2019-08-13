@@ -29,10 +29,10 @@ jobs:
           aws-region: AWS_REGION
           overwrite: true
 
-      - aws-code-deploy/deploy:
+      - aws-code-deploy/deploy-bundle:
           application-name: AMessenger-ci-codedeploy-service
           deployment-group: ci-cd-deploy-group
-          service-role-arn: CodeDeployDefault.AllAtOnce
+          # service-role-arn: CodeDeployDefault.AllAtOnce
           bundle-bucket: node-express-server
           bundle-key: deploy
           # arguments: '--profile assume_role'
