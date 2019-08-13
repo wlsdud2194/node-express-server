@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   aws-s3: circleci/aws-s3@1.0.10
+  aws-code-deploy: circleci/aws-code-deploy@0.0.9
 jobs:
   build:
     docker:
@@ -22,11 +23,19 @@ jobs:
 
       - aws-s3/sync:
           from: ~/repo
-          to: 's3://node-express-server/'
+          to: 's3://node-express-server/deploy'
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           aws-region: AWS_REGION
           overwrite: true
+
+      - aws-code-deploy/deploy:
+          application-name: AMessenger-ci-codedeploy-service
+          deployment-group: ci-cd-deploy-group
+          service-role-arn: CodeDeployDefault.AllAtOnce
+          bundle-bucket: node-express-server
+          bundle-key: deploy
+          # arguments: '--profile assume_role'
 
       - run:
           name: install dependencies
