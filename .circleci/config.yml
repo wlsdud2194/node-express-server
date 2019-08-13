@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  aws-s3: circleci/aws-s3@1.0.0
+  aws-s3: circleci/aws-s3@1.0.3
 jobs:
   build:
     docker:
@@ -16,11 +16,18 @@ jobs:
             - v1-dependencies-
       - run: npm install -g yarn
 
-      - run: yarn install
+      - run:
+          name: install dependencies
+          command: yarn install
 
       # run tests!
-      - run: yarn test
+      - run:
+          name: Test
+          command: yarn test
+
       - run: rm -fs node_modules
+
+      - run: mkdir bucket
 
       - aws-s3/sync:
           from: bucket
