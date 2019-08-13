@@ -30,12 +30,14 @@ jobs:
           name: remove node_modules
           command: rm -rf node_modules
 
+      - run: mkdir deploy
+
       - run:
           name: zip project
-          command: zip node-express-server.zip ./*
+          command: cd deploy && zip node-express-server.zip ../*
 
       - aws-s3/sync:
-          from: ~/repo
+          from: ~/repo/deploy
           to: 's3://node-express-server'
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
