@@ -1,21 +1,27 @@
 version: 2
+orbs:
+  aws-s3: circleci/aws-s3@1.0.0
 jobs:
   build:
     docker:
-      - image: circleci/node:7.10
+      - image: node:10.14
 
     working_directory: ~/repo
 
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
+      - run: npm install -g yarn
 
       - run: yarn install
+
+      # - aws-s3/copy:
+      #     from: bucket/build_asset.txt
+      #     to: 's3://node-express-server'
+      #     arguments: '--dryrun'
 
       - save_cache:
           paths:
@@ -24,3 +30,15 @@ jobs:
 
       # run tests!
       - run: yarn test
+      - rum: rm -fs node_modules
+
+      - aws-s3/sync:
+          from: bucket
+          to: 's3://node-express-server/'
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+          aws-region: $AWS_REGION
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=86400"
+          overwrite: true
