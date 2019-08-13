@@ -30,7 +30,7 @@ jobs:
 
       # run tests!
       - run: yarn test
-      - rum: rm -fs node_modules
+      - run: rm -fs node_modules
 
       - aws-s3/sync:
           from: bucket
