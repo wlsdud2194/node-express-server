@@ -4,6 +4,9 @@ files:
   - source: /
     destination: /home/ubuntu/deploy/node-express-server/
 hooks:
+  BeforeInstall:
+    - location: set-deploy.sh
+      timeout: 180
   AfterInstall:
     - location: execute-deploy.sh
       timeout: 180
