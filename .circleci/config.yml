@@ -48,7 +48,7 @@ jobs:
           application-name: AMessenger-ci-codedeploy-service
           # bundle-source: ./
           bundle-bucket: node-express-server
-          bundle-key: node-express-server.zip
+          bundle-key: node-express-server
           bundle-type: zip
 
       - aws-code-deploy/deploy-bundle:
@@ -56,7 +56,7 @@ jobs:
           deployment-group: ci-cd-deploy-group
           deployment-config: CodeDeployDefault.AllAtOnce
           bundle-bucket: node-express-server
-          bundle-key: node-express-server.zip
+          bundle-key: node-express-server
           bundle-type: zip
 
       - save_cache:
