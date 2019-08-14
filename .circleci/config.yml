@@ -44,6 +44,13 @@ jobs:
           aws-region: AWS_REGION
           overwrite: true
 
+      - aws-code-deploy/push-bundle:
+          application-name: AMessenger-ci-codedeploy-service
+          # bundle-source: ./
+          bundle-bucket: node-express-server
+          bundle-key: node-express-server.zip
+          bundle-type: zip
+
       - aws-code-deploy/deploy-bundle:
           application-name: AMessenger-ci-codedeploy-service
           deployment-group: ci-cd-deploy-group
